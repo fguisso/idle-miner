@@ -49,6 +49,13 @@ func generateBlock(client *rpcclient.Client) (chainhash.Hash, error) {
 }
 
 func main() {
+	// Load config and parse command line
+	cfg, _, err := loadConfig()
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
 	dcrdHomeDir := dcrutil.AppDataDir("dcrd", false)
 	certs, err := ioutil.ReadFile(filepath.Join(dcrdHomeDir, "rpc.cert"))
 	if err != nil {
@@ -56,10 +63,10 @@ func main() {
 	}
 	var myLastBlock chainhash.Hash
 	connCfg := &rpcclient.ConnConfig{
-		Host:         "localhost:19556",
+		Host:         cfg.NodeHost + ":" + cfg.Port,
 		Endpoint:     "ws",
-		User:         "8Qpf4pG/dysKEdIOm89k/1ZyLfU=",
-		Pass:         "2kBX9bCS9mUe0nKQ2FlhNl16q1s=",
+		User:         cfg.User,
+		Pass:         cfg.Password,
 		Certificates: certs,
 	}
 	block := make(chan []byte)
@@ -85,12 +92,11 @@ func main() {
 				log.Fatal(err)
 			}
 			log.Printf("Best block: %d %s \n", blockHeader.Height, blockHeader.BlockHash())
-
-			plustentime := blockHeader.Timestamp.Add(30 * time.Second)
+			plustentime := blockHeader.Timestamp.Add(time.Duration(cfg.Time) * time.Minute)
 			timeNow := time.Now()
 			diference := plustentime.Sub(timeNow)
 
-			log.Printf("I'm go to sleep %v minutes.", diference)
+			log.Printf("I'm go to sleep %v.", diference)
 			timer := time.NewTimer(diference)
 			log.Println("timer: ", timer != nil)
 			select {

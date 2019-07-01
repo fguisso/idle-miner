@@ -11,6 +11,7 @@ require (
 	github.com/fsnotify/fsnotify v1.4.7 // indirect
 	github.com/golang/protobuf v1.3.1 // indirect
 	github.com/hpcloud/tail v1.0.0 // indirect
+	github.com/jessevdk/go-flags v1.4.0
 	github.com/kr/pretty v0.1.0 // indirect
 	golang.org/x/sys v0.0.0-20190610200419-93c9922d18ae // indirect
 	gopkg.in/fsnotify.v1 v1.4.7 // indirect
