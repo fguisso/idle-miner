@@ -11,21 +11,21 @@ import (
 )
 
 const (
-	defaultConfigFilename = "a10miner.conf"
+	defaultConfigFilename = "idleminer.conf"
 	defaultDcrNodeHost    = "localhost"
-	defaultDcrNodePort    = "19556"
+	defaultDcrNodePort    = "19109"
 )
 
 var (
-	defaultDataDir    = dcrutil.AppDataDir("a10miner", false)
+	defaultDataDir    = dcrutil.AppDataDir("idleminer", false)
 	defaultConfigFile = filepath.Join(
 		defaultDataDir, defaultConfigFilename,
 	)
 )
 
 type config struct {
-	NodeHost string `short:"h" long:"node-host" description:"network address:port of dcrd RPC"`
-	Port     string `long:"port" description:"network address:port of dcrd RPC"`
+	NodeHost string `short:"h" long:"node-host" description:"network address of dcrd RPC"`
+	Port     string `long:"port" description:"network port of dcrd RPC"`
 	User     string `short:"u" long:"user" description:"user of dcrd RPC"`
 	Password string `short:"p" long:"password" description:"password of dcrd RPC"`
 	Time     int    `short:"t" long:"time" description:"Time in minutes after a mined block to generate new one"`
